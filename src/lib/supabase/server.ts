@@ -1,13 +1,16 @@
 // Server-side Supabase client — use inside Server Components, Route Handlers,
 // and Server Actions. Reads/writes the auth cookie via Next.js `cookies()`.
+//
+// Intentionally untyped (no <Database> generic) — see the comment in
+// ./client.ts for why. App-level types from ./types.ts are applied via
+// explicit casts at each call site instead.
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import type { Database } from "../types";
 
 export function createClient() {
   const cookieStore = cookies();
 
-  return createServerClient<Database>(
+  return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
