@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import AdminSidebar from "@/components/admin/AdminSidebar";
+import type { Profile } from "@/lib/types";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = createClient();
@@ -12,11 +13,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   // this is a defense-in-depth check for direct server-render access.
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
+  const { data } = await supabase
     .from("profiles")
     .select("role, full_name")
     .eq("id", user.id)
     .single();
+  const profile = data as Pick<Profile, "role" | "full_name"> | null;
 
   if (profile?.role !== "admin") {
     return (
