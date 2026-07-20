@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-off text-black font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display uppercase tracking-wide;
+  }
+  ::selection {
+    @apply bg-red text-white;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply max-w-[1240px] mx-auto px-5 md:px-7;
+  }
+  .plate {
+    @apply inline-flex items-center gap-1.5 bg-white border-2 border-black rounded text-black
+           px-2.5 py-1 font-mono font-bold text-[11px] tracking-wider shadow-plate relative;
+  }
+  .plate::before {
+    content: "";
+    @apply w-[7px] h-[7px] rounded-full bg-red shrink-0;
+  }
+  .plate-dark {
+    @apply bg-black text-white border-white;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 px-5 py-[11px] text-[13px] font-bold uppercase tracking-wider
+           rounded border-2 border-transparent cursor-pointer transition-transform duration-200
+           hover:-translate-y-0.5;
+  }
+  .btn-red {
+    @apply bg-red text-white shadow-[0_6px_0_#8a0e1c] hover:shadow-[0_3px_0_#8a0e1c];
+  }
+  .btn-white {
+    @apply bg-white text-black;
+  }
+  .btn-outline {
+    @apply border-white/35 text-white hover:border-white;
+  }
+  .btn-block-outline {
+    @apply border-2 border-black text-black;
+  }
+  .chip {
+    @apply px-4 py-2 rounded-full border border-line text-[13px] font-semibold bg-white cursor-pointer transition-colors;
+  }
+  .chip-active {
+    @apply bg-black text-white border-black;
+  }
+}
